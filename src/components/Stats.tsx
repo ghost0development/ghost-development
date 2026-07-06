@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import AnimatedText from "@/components/AnimatedText";
 
 const stats = [
-  { value: 2, label: "Zrealizowanych projektów", suffix: "" },
+  { value: 1, label: "Zrealizowany projekt", suffix: "" },
   { value: 12, label: "Technologie", suffix: "+" },
   { value: 1, label: "Lat doświadczenia", suffix: "+" },
   { value: 0, label: "Siedziba", suffix: "", text: "Szczecin" },
