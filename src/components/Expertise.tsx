@@ -5,7 +5,7 @@ import AnimatedText from "@/components/AnimatedText";
 import ParallaxBg from "@/components/ParallaxSection";
 
 const items = [
-  { icon: Globe, title: "Strony internetowe", desc: "Nowoczesne, responsywne strony firmowe oraz landing page. Optymalizacja wydajności i SEO. Wdrożenie w 48h.", price: "od 999 zł" },
+  { icon: Globe, title: "Strony internetowe", desc: "Nowoczesne, responsywne strony firmowe oraz landing page. Optymalizacja wydajności i SEO.", price: "od 999 zł" },
   { icon: Layout, title: "Aplikacje webowe", desc: "Zaawansowane aplikacje z autoryzacją, płatnościami i panelami administracyjnymi. Backend w Supabase lub autorskim API.", price: "od 3 999 zł" },
   { icon: Monitor, title: "Aplikacje desktopowe", desc: "Profesjonalne aplikacje okienkowe dla firm — systemy zarządzania, zamówień, magazynu i obsługi klienta. Python, PySide6.", price: "od 2 999 zł" },
   { icon: MessageCircle, title: "Konsulting techniczny", desc: "Doradztwo w zakresie architektury systemów, wyboru technologii i optymalizacji istniejących projektów.", price: "od 80 zł / h" },
@@ -71,7 +71,7 @@ export default function Expertise() {
             transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
             className="text-sm text-[hsl(var(--muted))] font-light mt-4 max-w-lg"
           >
-            Kompleksowe usługi programistyczne dla firm i przedsiębiorców.
+            Projektuję i wdrażam nowoczesne rozwiązania dla firm i przedsiębiorców.
           </motion.p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[hsl(var(--card-border))/0.3] rounded-2xl overflow-hidden border border-[hsl(var(--card-border))/0.3]">

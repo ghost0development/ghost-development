@@ -36,7 +36,7 @@ export default function Contact() {
             transition={{ delay: 0.4, duration: 0.5, ease: "easeOut" }}
             className="text-sm text-[hsl(var(--muted))] font-light mt-4 mb-10 max-w-md"
           >
-            Wycenimy, doradzimy, wdrożymy. Szukasz partnera do wspólnego projektu? Napisz!
+            Wycenię, doradzę, wdrożę. Masz pomysł? Napisz!
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ export default function Contact() {
             transition={{ delay: 0.9, duration: 0.5 }}
             className="text-xs text-[hsl(var(--muted))] mt-6 tracking-wider"
           >
-            Przygotujemy ofertę w 24h
+            Przygotuję ofertę w 24h
           </motion.p>
         </div>
       </div>

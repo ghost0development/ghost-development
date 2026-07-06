@@ -4,10 +4,10 @@ import { MessageSquare, PenLine, Code, Rocket } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
 
 const steps = [
-  { icon: MessageSquare, title: "Konsultacja", desc: "Poznajemy Twój biznes, potrzeby i wizję — ustalamy zakres i budżet" },
-  { icon: PenLine, title: "Projekt", desc: "Tworzymy prototyp i akceptujemy wygląd — wiesz co dostajesz" },
-  { icon: Code, title: "Kodowanie", desc: "Budujemy stronę krok po kroku z optymalizacją na każdym etapie" },
-  { icon: Rocket, title: "Wdrożenie", desc: "Testujemy, wgrywamy na serwer i szkolimy — gotowe do działania" },
+  { icon: MessageSquare, title: "Konsultacja", desc: "Poznaję Twój biznes, potrzeby i wizję — ustalam zakres i budżet" },
+  { icon: PenLine, title: "Projekt", desc: "Tworzę prototyp i akceptujemy wygląd — wiesz co dostajesz" },
+  { icon: Code, title: "Kodowanie", desc: "Buduję stronę krok po kroku z optymalizacją na każdym etapie" },
+  { icon: Rocket, title: "Wdrożenie", desc: "Testuję, wgrywam na serwer i szkolę — gotowe do działania" },
 ];
 
 export default function Workflow() {
@@ -21,7 +21,7 @@ export default function Workflow() {
           delay={0.1}
         />
         <p className="text-center text-[hsl(var(--muted))] font-light mb-12 -mt-8 text-sm">
-          Sprawdzony proces, który dostarcza wyniki
+          Sprawdzony proces, który dostarcza rezultaty
         </p>
         <div className="relative">
           <div className="hidden md:block absolute top-14 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-[hsl(var(--primary))/0.1] via-[hsl(var(--primary))/0.4] to-[hsl(var(--primary))/0.1]" />

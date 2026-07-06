@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import AnimatedText from "@/components/AnimatedText";
 
 const stats = [
-  { value: 3, label: "Zrealizowanych projektów", suffix: "+" },
-  { value: 48, label: "Godzin do MVP", suffix: "h" },
-  { value: 100, label: "Terminowość", suffix: "%" },
+  { value: 2, label: "Zrealizowanych projektów", suffix: "" },
+  { value: 12, label: "Technologie", suffix: "+" },
+  { value: 1, label: "Lat doświadczenia", suffix: "+" },
   { value: 0, label: "Siedziba", suffix: "", text: "Szczecin" },
 ];
 
@@ -105,7 +105,7 @@ export default function Stats() {
             transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
             className="text-sm text-[hsl(var(--muted))] font-light mt-4 max-w-xl leading-relaxed"
           >
-            Jestem <strong className="text-white font-medium">Saylo</strong> — solo developer z Szczecina. Specjalizuję się w projektowaniu i wdrażaniu nowoczesnych stron internetowych oraz aplikacji webowych i desktopowych. Każdy projekt traktuję indywidualnie — od analizy wymagań, przez projektowanie interfejsu, aż po wdrożenie i wsparcie techniczne.
+            Jestem <strong className="text-white font-medium">Saylo</strong> — solo developer z Szczecina. Specjalizuję się w projektowaniu i wdrażaniu nowoczesnych stron internetowych oraz aplikacji webowych i desktopowych. Każdy projekt traktuję indywidualnie — od analizy wymagań, przez projekt, aż po wdrożenie i wsparcie techniczne.
           </motion.p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[hsl(var(--card-border))/0.3] rounded-2xl border border-[hsl(var(--card-border))/0.3]">

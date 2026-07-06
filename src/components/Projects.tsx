@@ -94,7 +94,7 @@ export default function Projects() {
             transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
             className="text-sm text-[hsl(var(--muted))] font-light mt-4 max-w-lg"
           >
-            Przykłady naszych projektów — od prostych stron po złożone systemy.
+            Przykłady zrealizowanych projektów — od prostych stron po złożone systemy.
           </motion.p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[hsl(var(--card-border))/0.3] rounded-2xl overflow-hidden border border-[hsl(var(--card-border))/0.3]">

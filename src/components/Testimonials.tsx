@@ -5,13 +5,8 @@ import { Star, MessageSquare, Send } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
 import { getSupabase, type Testimonial } from "@/lib/supabase";
 
-const defaults: Testimonial[] = [
-  { id: "1", name: "Klient", content: "Profesjonalne podejście, szybka realizacja i świetny kontakt. Polecam!", rating: 5, created_at: "2025-12-01" },
-  { id: "2", name: "Klient", content: "Bardzo dobra współpraca. Strona działa doskonale, a SEO wyraźnie podniosło ruch.", rating: 5, created_at: "2025-11-15" },
-];
-
 export default function Testimonials() {
-  const [reviews, setReviews] = useState<Testimonial[]>(defaults);
+  const [reviews, setReviews] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({ name: "", content: "", rating: 5 });
   const [submitted, setSubmitted] = useState(false);
@@ -105,11 +100,13 @@ export default function Testimonials() {
           />
         </div>
 
-        {loading ? (
+        {loading && (
           <div className="flex justify-center py-12">
             <div className="w-5 h-5 rounded-full border border-[hsl(var(--primary))/0.3] border-t-[hsl(var(--primary))] animate-spin" />
           </div>
-        ) : (
+        )}
+
+        {!loading && reviews.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
             {reviews.map((review, i) => (
               <motion.div
