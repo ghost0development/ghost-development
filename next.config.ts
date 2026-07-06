@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/ghost-development",
+  distDir: "docs",
   images: { unoptimized: true },
   trailingSlash: true,
 };
