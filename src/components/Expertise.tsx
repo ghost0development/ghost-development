@@ -10,33 +10,33 @@ const services: { icon: typeof Globe; title: string; tiers: Tier[] }[] = [
   {
     icon: Globe, title: "Strony internetowe",
     tiers: [
-      { name: "Landing Page", price: "999 zł", features: ["1 podstrona", "Responsywność", "Formularz", "Podstawowe SEO"], popular: false },
-      { name: "Strona Firmowa", price: "1 999 zł", features: ["Do 5 podstron", "Responsywność", "Formularz + Google Maps", "SEO + optymalizacja", "Szkolenie z edycji"], popular: true },
-      { name: "Strona Premium", price: "3 499 zł", features: ["Do 15 podstron", "Blog/CMS", "Panel administracyjny", "SEO + analityka", "Hosting + domena 1 rok"], popular: false },
+      { name: "Landing Page", price: "1 700 zł", features: ["1 podstrona", "Responsywność", "Formularz", "Podstawowe SEO"], popular: false },
+      { name: "Strona Firmowa", price: "3 500 zł", features: ["Do 5 podstron", "Responsywność", "Formularz + Google Maps", "SEO + optymalizacja", "Szkolenie z edycji"], popular: true },
+      { name: "Strona Premium", price: "5 500 zł", features: ["Do 15 podstron", "Blog/CMS", "Panel administracyjny", "SEO + analityka", "Hosting + domena 1 rok"], popular: false },
     ],
   },
   {
     icon: Layout, title: "Aplikacje webowe",
     tiers: [
-      { name: "MVP", price: "3 999 zł", features: ["Do 5 widoków", "Logowanie", "Baza danych", "Hosting 3 mc"], popular: false },
-      { name: "Standard", price: "7 999 zł", features: ["Do 15 widoków", "Panel admin", "Płatności", "API REST", "Hosting 6 mc"], popular: true },
-      { name: "Enterprise", price: "14 999 zł", features: ["Dowolna liczba widoków", "Panel admin + role", "Integracje", "API + webhooki", "Hosting 12 mc"], popular: false },
+      { name: "MVP", price: "14 000 zł", features: ["Do 5 widoków", "Logowanie", "Baza danych", "Hosting 3 mc"], popular: false },
+      { name: "Standard", price: "28 000 zł", features: ["Do 15 widoków", "Panel admin", "Płatności", "API REST", "Hosting 6 mc"], popular: true },
+      { name: "Enterprise", price: "30 000 zł", features: ["Dowolna liczba widoków", "Panel admin + role", "Integracje", "API + webhooki", "Hosting 12 mc"], popular: false },
     ],
   },
   {
     icon: Monitor, title: "Aplikacje desktopowe",
     tiers: [
-      { name: "Basic", price: "2 999 zł", features: ["1 moduł", "Baza lokalna", "Raporty PDF", "1 stanowisko"], popular: false },
-      { name: "Pro", price: "5 999 zł", features: ["3 moduły", "Baza sieciowa", "Raporty + Excel", "3 stanowiska", "Szkolenie"], popular: true },
-      { name: "Enterprise", price: "11 999 zł", features: ["Wielomodułowy", "Baza współdzielona", "Zaawansowane raporty", "10 stanowisk", "Wsparcie 30 dni"], popular: false },
+      { name: "Basic", price: "3 500 zł", features: ["1 moduł", "Baza lokalna", "Raporty PDF", "1 stanowisko"], popular: false },
+      { name: "Pro", price: "5 500 zł", features: ["3 moduły", "Baza sieciowa", "Raporty + Excel", "3 stanowiska", "Szkolenie"], popular: true },
+      { name: "Enterprise", price: "9 999 zł", features: ["Wielomodułowy", "Baza współdzielona", "Zaawansowane raporty", "10 stanowisk", "Wsparcie 30 dni"], popular: false },
     ],
   },
   {
     icon: MessageCircle, title: "Konsulting",
     tiers: [
-      { name: "Konsultacja", price: "80 zł/h", features: ["1h online/telefon", "Rekomendacje", "Raport"], popular: false },
-      { name: "Audyt kodu", price: "500 zł", features: ["Audyt do 10k linii", "Raport", "Konsultacja wyników"], popular: true },
-      { name: "Retainer", price: "1 200 zł/mc", features: ["20h wsparcia/mc", "Priorytet", "Code review"], popular: false },
+      { name: "Konsultacja", price: "70 zł/h", features: ["1h online/telefon", "Rekomendacje", "Raport"], popular: false },
+      { name: "Audyt kodu", price: "549 zł", features: ["Audyt do 10k linii", "Raport", "Konsultacja wyników"], popular: true },
+      { name: "Retainer", price: "999 zł/mc", features: ["20h wsparcia/mc", "Priorytet", "Code review"], popular: false },
     ],
   },
 ];
