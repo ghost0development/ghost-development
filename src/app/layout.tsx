@@ -14,13 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ghost0development.github.io/ghost-development/"),
   title: "Ghost Development — Nowa Generacja Oprogramowania",
   description: "Ghost Development to elitarny software house specjalizujący się w nowoczesnych, skalowalnych rozwiązaniach backendowych i webowych.",
   icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Ghost Development — Nowa Generacja Oprogramowania",
     description: "Software House · Szczecin",
-    url: "https://ghostdev.pl",
+    url: "https://ghost0development.github.io/ghost-development/",
     siteName: "Ghost Development",
     images: [{ url: "/logo.webp", width: 300, height: 300 }],
     locale: "pl_PL",
