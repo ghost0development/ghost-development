@@ -1,51 +1,81 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Star, MessageSquare, Send } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
+import { getSupabase, type Testimonial } from "@/lib/supabase";
 
-interface Review {
-  id: string;
-  name: string;
-  content: string;
-  rating: number;
-  date: string;
-}
-
-const STORAGE_KEY = "ghost-testimonials";
-
-const defaults: Review[] = [
-  { id: "1", name: "Klient", content: "Profesjonalne podejście, szybka realizacja i świetny kontakt. Polecam!", rating: 5, date: "2025-12-01" },
-  { id: "2", name: "Klient", content: "Bardzo dobra współpraca. Strona działa doskonale, a SEO wyraźnie podniosło ruch.", rating: 5, date: "2025-11-15" },
+const defaults: Testimonial[] = [
+  { id: "1", name: "Klient", content: "Profesjonalne podejście, szybka realizacja i świetny kontakt. Polecam!", rating: 5, created_at: "2025-12-01" },
+  { id: "2", name: "Klient", content: "Bardzo dobra współpraca. Strona działa doskonale, a SEO wyraźnie podniosło ruch.", rating: 5, created_at: "2025-11-15" },
 ];
 
 export default function Testimonials() {
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<Testimonial[]>(defaults);
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({ name: "", content: "", rating: 5 });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try { setReviews(JSON.parse(stored)); } catch { setReviews(defaults); }
-    } else {
-      setReviews(defaults);
+    async function fetchReviews() {
+      try {
+        const sb = getSupabase();
+        if (!sb) throw new Error("no supabase");
+        const { data } = await sb
+          .from("testimonials")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(10);
+
+        if (data && data.length > 0) {
+          setReviews(data);
+        }
+      } catch {
+        const stored = localStorage.getItem("ghost-testimonials");
+        if (stored) {
+          try { setReviews(JSON.parse(stored)); } catch {}
+        }
+      } finally {
+        setLoading(false);
+      }
     }
+    fetchReviews();
   }, []);
 
-  const addReview = (e: React.FormEvent) => {
+  const addReview = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.content.trim()) return;
-    const review: Review = {
-      id: Date.now().toString(),
+
+    const newReview = {
       name: form.name.trim() || "Anonim",
       content: form.content.trim(),
       rating: form.rating,
-      date: new Date().toISOString().split("T")[0],
     };
-    const updated = [review, ...reviews];
-    setReviews(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+
+    try {
+      const sb = getSupabase();
+      if (!sb) throw new Error("no supabase");
+      const { data } = await sb
+        .from("testimonials")
+        .insert([newReview] as any)
+        .select()
+        .single();
+
+      if (data) {
+        setReviews((prev) => [data, ...prev]);
+      }
+    } catch {
+      const local: Testimonial = {
+        id: Date.now().toString(),
+        ...newReview,
+        created_at: new Date().toISOString(),
+      };
+      setReviews((prev) => [local, ...prev]);
+      const stored = localStorage.getItem("ghost-testimonials");
+      const existing = stored ? JSON.parse(stored) : [];
+      localStorage.setItem("ghost-testimonials", JSON.stringify([local, ...existing]));
+    }
+
     setForm({ name: "", content: "", rating: 5 });
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
@@ -75,35 +105,41 @@ export default function Testimonials() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-          {reviews.map((review, i) => (
-            <motion.div
-              key={review.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.4, ease: "easeOut" }}
-              className="p-6 rounded-xl bg-[hsl(0_0%_3%/0.6)] border border-[hsl(var(--primary))/0.06] hover:border-[hsl(var(--primary))/0.12] transition-all duration-300"
-            >
-              <div className="flex items-center gap-1 mb-3">
-                {Array.from({ length: 5 }).map((_, si) => (
-                  <Star
-                    key={si}
-                    size={12}
-                    className={si < review.rating ? "text-[hsl(var(--primary))] fill-[hsl(var(--primary))]" : "text-[hsl(0_0%_20%)]"}
-                  />
-                ))}
-              </div>
-              <p className="text-sm text-[hsl(0_0%_75%)] font-light leading-relaxed mb-3">
-                &ldquo;{review.content}&rdquo;
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[hsl(var(--muted))] tracking-wider">{review.name}</span>
-                <span className="text-[9px] font-mono text-[hsl(var(--muted))/0.5]">{review.date}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="w-5 h-5 rounded-full border border-[hsl(var(--primary))/0.3] border-t-[hsl(var(--primary))] animate-spin" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+            {reviews.map((review, i) => (
+              <motion.div
+                key={review.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06, duration: 0.4, ease: "easeOut" }}
+                className="p-6 rounded-xl bg-[hsl(0_0%_3%/0.6)] border border-[hsl(var(--primary))/0.06] hover:border-[hsl(var(--primary))/0.12] transition-all duration-300"
+              >
+                <div className="flex items-center gap-1 mb-3">
+                  {Array.from({ length: 5 }).map((_, si) => (
+                    <Star
+                      key={si}
+                      size={12}
+                      className={si < review.rating ? "text-[hsl(var(--primary))] fill-[hsl(var(--primary))]" : "text-[hsl(0_0%_20%)]"}
+                    />
+                  ))}
+                </div>
+                <p className="text-sm text-[hsl(0_0%_75%)] font-light leading-relaxed mb-3">
+                  &ldquo;{review.content}&rdquo;
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-[hsl(var(--muted))] tracking-wider">{review.name}</span>
+                  <span className="text-[9px] font-mono text-[hsl(var(--muted))/0.5]">{review.created_at?.slice(0, 10)}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
