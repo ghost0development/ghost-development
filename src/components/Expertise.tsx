@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Building2, Store, Briefcase, Sparkles, Check, ArrowRight, Star } from "lucide-react";
+import { Building2, Store, Briefcase, Check, ArrowRight } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
 import ParallaxBg from "@/components/ParallaxSection";
 
@@ -19,6 +19,7 @@ const segments = [
       { name: "Strona Premium", price: "5 500 zł" },
       { name: "Desktop Basic", price: "3 500 zł" },
       { name: "Konsultacja", price: "70 zł/h" },
+      { name: "Retainer (5h/mc)", price: "200 zł/mc" },
     ],
   },
   {
@@ -36,6 +37,8 @@ const segments = [
       { name: "Desktop Pro", price: "8 000 zł" },
       { name: "Audyt kodu", price: "1 500 zł" },
       { name: "Retainer (10h/mc)", price: "600 zł/mc" },
+      { name: "Dedykowany zespół / outsourcing" },
+      { name: "Konsulting architektoniczny" },
     ],
   },
   {
@@ -49,12 +52,14 @@ const segments = [
     packages: [
       { name: "Aplikacje webowe / platformy" },
       { name: "Systemy desktopowe Enterprise" },
-      { name: "Retainery premium" },
+      { name: "Retainer (20h/mc)" },
       { name: "Konsulting architektoniczny" },
     ],
     customPrice: true,
   },
 ];
+
+const mailTo = "ghost.development.info@gmail.com";
 
 function SegmentCard({ segment, i }: { segment: typeof segments[0]; i: number }) {
   const Icon = segment.icon;
@@ -103,21 +108,27 @@ function SegmentCard({ segment, i }: { segment: typeof segments[0]; i: number })
 
           <div className="space-y-3 mb-8">
             {segment.packages.map((pkg, pi) => (
-              <div key={pi} className="group/item">
+              <div key={pi}>
                 {"price" in pkg && pkg.price ? (
-                  <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-[hsl(0_0%_100%/0.02)] hover:bg-[hsl(0_0%_100%/0.04)] transition-colors">
+                  <a
+                    href={`mailto:${mailTo}?subject=Zapytanie%20o%20${encodeURIComponent(pkg.name)}`}
+                    className="flex items-center justify-between py-2 px-3 rounded-xl bg-[hsl(0_0%_100%/0.02)] hover:bg-[hsl(0_0%_100%/0.06)] transition-colors group"
+                  >
                     <div className="flex items-center gap-2.5">
                       <Check size={10} className="text-[hsl(var(--primary))] shrink-0" />
-                      <span className="text-[13px] text-[hsl(0_0%_75%)] font-light">{pkg.name}</span>
+                      <span className="text-[13px] text-[hsl(0_0%_75%)] group-hover:text-white transition-colors">{pkg.name}</span>
                     </div>
-                    <span className={`text-[13px] font-semibold font-mono whitespace-nowrap ml-4 ${
-                      segment.popular ? "text-[hsl(var(--secondary))]" : "text-[hsl(var(--primary))]"
-                    }`}>
-                      {pkg.price}
-                    </span>
-                  </div>
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[13px] font-semibold font-mono whitespace-nowrap ${
+                        segment.popular ? "text-[hsl(var(--secondary))]" : "text-[hsl(var(--primary))]"
+                      }`}>
+                        {pkg.price}
+                      </span>
+                      <ArrowRight size={11} className="text-[hsl(var(--muted))/0] group-hover:text-[hsl(var(--muted))/0.5] transition-all" />
+                    </div>
+                  </a>
                 ) : (
-                  <div className="flex items-center gap-2.5 py-2 px-3 rounded-xl bg-[hsl(0_0%_100%/0.02)] hover:bg-[hsl(0_0%_100%/0.04)] transition-colors">
+                  <div className="flex items-center gap-2.5 py-2 px-3 rounded-xl bg-[hsl(0_0%_100%/0.02)]">
                     <div className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--muted))/0.3] shrink-0" />
                     <span className="text-[13px] text-[hsl(0_0%_65%)] font-light">{pkg.name}</span>
                   </div>
@@ -126,31 +137,12 @@ function SegmentCard({ segment, i }: { segment: typeof segments[0]; i: number })
             ))}
           </div>
 
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-[hsl(0_0%_3%)] via-transparent to-transparent pointer-events-none" />
-            {segment.customPrice ? (
-              <a
-                href="#kontakt"
-                className="group relative flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-[hsl(0_0%_15%)] bg-[hsl(0_0%_5%)] text-white text-[11px] font-semibold tracking-widest uppercase hover:bg-[hsl(0_0%_8%)] hover:border-[hsl(0_0%_25%)] transition-all overflow-hidden"
-              >
-                <Sparkles size={13} className="text-[hsl(var(--primary))]" />
-                Wyceń projekt
-                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
-              </a>
-            ) : (
-              <a
-                href="#kontakt"
-                className={`group flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-[11px] font-semibold tracking-widest uppercase transition-all ${
-                  segment.popular
-                    ? "bg-[hsl(var(--secondary))] text-white hover:brightness-110 shadow-lg shadow-[hsl(var(--secondary))/0.2]"
-                    : "border border-[hsl(var(--primary))/0.2] text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))/0.08]"
-                }`}
-              >
-                Wybierz pakiet
-                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
-              </a>
-            )}
-          </div>
+          <a
+            href={`mailto:${mailTo}?subject=Zapytanie%20ofertowe%20—%20${encodeURIComponent(segment.title)}`}
+            className="block text-center text-[10px] font-mono tracking-wider text-[hsl(var(--muted))/0.6] hover:text-[hsl(var(--primary))] transition-colors pt-2 border-t border-[hsl(var(--card-border))/0.15]"
+          >
+            Zapytaj o wycenę →
+          </a>
         </div>
       </div>
     </motion.div>
