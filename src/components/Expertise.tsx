@@ -1,105 +1,169 @@
 "use client";
 import { motion } from "framer-motion";
-import { Globe, Layout, Monitor, MessageCircle, Check } from "lucide-react";
+import { Building2, Store, Briefcase, Sparkles, Check, ArrowRight, Star } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
 import ParallaxBg from "@/components/ParallaxSection";
 
-type Tier = { name: string; price: string; features: string[]; popular?: boolean };
-
-const services: { icon: typeof Globe; title: string; tiers: Tier[] }[] = [
+const segments = [
   {
-    icon: Globe, title: "Strony internetowe",
-    tiers: [
-      { name: "Landing Page", price: "1 700 zł", features: ["1 podstrona", "Responsywność", "Formularz", "Podstawowe SEO"], popular: false },
-      { name: "Strona Firmowa", price: "3 500 zł", features: ["Do 5 podstron", "Responsywność", "Formularz + Google Maps", "SEO + optymalizacja", "Szkolenie z edycji"], popular: true },
-      { name: "Strona Premium", price: "5 500 zł", features: ["Do 15 podstron", "Blog/CMS", "Panel administracyjny", "SEO + analityka", "Hosting + domena 1 rok"], popular: false },
+    id: "male",
+    icon: Store,
+    title: "Małe firmy",
+    badge: "Start",
+    desc: "Dla lokalnych biznesów i startupów — wszystko czego potrzebujesz w stałej cenie.",
+    gradient: "from-[hsl(var(--primary))/0.15] to-transparent",
+    borderGlow: "shadow-[hsl(var(--primary))/0.1]",
+    packages: [
+      { name: "Landing Page", price: "1 700 zł" },
+      { name: "Strona Firmowa", price: "3 500 zł" },
+      { name: "Strona Premium", price: "5 500 zł" },
+      { name: "Desktop Basic", price: "3 500 zł" },
+      { name: "Konsultacja", price: "70 zł/h" },
     ],
   },
   {
-    icon: Layout, title: "Aplikacje webowe",
-    tiers: [
-      { name: "MVP", price: "14 000 zł", features: ["Do 5 widoków", "Logowanie", "Baza danych", "Hosting 3 mc"], popular: false },
-      { name: "Standard", price: "28 000 zł", features: ["Do 15 widoków", "Panel admin", "Płatności", "API REST", "Hosting 6 mc"], popular: true },
-      { name: "Enterprise", price: "30 000 zł", features: ["Dowolna liczba widoków", "Panel admin + role", "Integracje", "API + webhooki", "Hosting 12 mc"], popular: false },
+    id: "srednie",
+    icon: Briefcase,
+    title: "Średnie firmy",
+    badge: "Popularne",
+    desc: "Dla rozwijających się firm — rozbudowane projekty z gwarancją jakości.",
+    gradient: "from-[hsl(var(--secondary))/0.15] to-transparent",
+    borderGlow: "shadow-[hsl(var(--secondary))/0.15]",
+    popular: true,
+    packages: [
+      { name: "Strona Biznes (CMS+blog)", price: "8 000 zł" },
+      { name: "Aplikacja Web Standard", price: "15 000 zł" },
+      { name: "Desktop Pro", price: "8 000 zł" },
+      { name: "Audyt kodu", price: "1 500 zł" },
+      { name: "Retainer (10h/mc)", price: "600 zł/mc" },
     ],
   },
   {
-    icon: Monitor, title: "Aplikacje desktopowe",
-    tiers: [
-      { name: "Basic", price: "3 500 zł", features: ["1 moduł", "Baza lokalna", "Raporty PDF", "1 stanowisko"], popular: false },
-      { name: "Pro", price: "5 500 zł", features: ["3 moduły", "Baza sieciowa", "Raporty + Excel", "3 stanowiska", "Szkolenie"], popular: true },
-      { name: "Enterprise", price: "9 999 zł", features: ["Wielomodułowy", "Baza współdzielona", "Zaawansowane raporty", "10 stanowisk", "Wsparcie 30 dni"], popular: false },
+    id: "duze",
+    icon: Building2,
+    title: "Duże firmy",
+    badge: "Premium",
+    desc: "Dla wymagających — zaawansowane systemy i długoterminowe partnerstwo.",
+    gradient: "from-[hsl(0_0%_100%/0.05)] to-transparent",
+    borderGlow: "shadow-[hsl(0_0%_100%/0.05)]",
+    packages: [
+      { name: "Aplikacje webowe / platformy" },
+      { name: "Systemy desktopowe Enterprise" },
+      { name: "Retainery premium" },
+      { name: "Konsulting architektoniczny" },
     ],
-  },
-  {
-    icon: MessageCircle, title: "Konsulting",
-    tiers: [
-      { name: "Konsultacja", price: "70 zł/h", features: ["1h online/telefon", "Rekomendacje", "Raport"], popular: false },
-      { name: "Audyt kodu", price: "549 zł", features: ["Audyt do 10k linii", "Raport", "Konsultacja wyników"], popular: true },
-      { name: "Retainer", price: "999 zł/mc", features: ["20h wsparcia/mc", "Priorytet", "Code review"], popular: false },
-    ],
+    customPrice: true,
   },
 ];
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
-};
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
-};
-
-function PricingCard({ tier, i }: { tier: Tier; i: number }) {
+function SegmentCard({ segment, i }: { segment: typeof segments[0]; i: number }) {
+  const Icon = segment.icon;
   return (
     <motion.div
-      variants={fadeIn}
-      className={`relative rounded-2xl border p-6 md:p-7 flex flex-col transition-all duration-300 hover:border-[hsl(var(--primary))/0.2] ${
-        tier.popular
-          ? "border-[hsl(var(--primary))/0.25] bg-[hsl(var(--primary))/0.04] shadow-lg shadow-[hsl(var(--primary))/0.05]"
-          : "border-[hsl(var(--card-border))/0.3] bg-[hsl(0_0%_3%/0.6)] backdrop-blur-sm"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ delay: i * 0.12, duration: 0.5, ease: "easeOut" }}
+      className={`relative rounded-3xl border transition-all duration-500 flex flex-col ${
+        segment.popular
+          ? "border-[hsl(var(--secondary))/0.3] bg-[hsl(0_0%_3%/0.9)] shadow-2xl shadow-[hsl(var(--secondary))/0.08] scale-[1.02] z-10"
+          : "border-[hsl(var(--card-border))/0.25] bg-[hsl(0_0%_3%/0.7)] backdrop-blur-sm hover:border-[hsl(var(--card-border))/0.4]"
       }`}
     >
-      {tier.popular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[hsl(var(--primary))] text-[9px] font-mono tracking-widest text-white uppercase shadow-lg shadow-[hsl(var(--primary))/0.3]">
-          Polecany
-        </div>
+      {segment.popular && (
+        <>
+          <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[hsl(var(--secondary))/0.2] via-transparent to-transparent opacity-50 pointer-events-none" />
+          <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[hsl(var(--secondary))/0.1] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        </>
       )}
-      <div className={`${tier.popular ? "mt-4" : ""}`}>
-        <h4 className="text-base font-semibold text-white">{tier.name}</h4>
-        <div className="mt-2 mb-4">
-          <span className="text-2xl font-bold text-white">{tier.price}</span>
+
+      <div className="relative p-8 md:p-10">
+        <div className={`absolute inset-0 rounded-t-3xl bg-gradient-to-b ${segment.gradient} opacity-30 pointer-events-none`} />
+
+        <div className="relative">
+          <div className="flex items-start justify-between mb-6">
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${
+              segment.popular
+                ? "bg-[hsl(var(--secondary))/0.1] text-[hsl(var(--secondary))]"
+                : "bg-[hsl(var(--primary))/0.08] text-[hsl(var(--primary))]"
+            }`}>
+              <Icon size={22} />
+            </div>
+            <span className={`text-[9px] font-mono tracking-[0.25em] uppercase px-3 py-1.5 rounded-full border ${
+              segment.popular
+                ? "bg-[hsl(var(--secondary))/0.1] text-[hsl(var(--secondary))] border-[hsl(var(--secondary))/0.2]"
+                : "bg-[hsl(0_0%_8%)] text-[hsl(var(--muted))] border-[hsl(0_0%_12%)]"
+            }`}>
+              {segment.badge}
+            </span>
+          </div>
+
+          <h3 className="text-xl font-bold text-white mb-2 tracking-tight">{segment.title}</h3>
+          <p className="text-[12px] text-[hsl(var(--muted))] font-light leading-relaxed mb-8">{segment.desc}</p>
+
+          <div className="space-y-3 mb-8">
+            {segment.packages.map((pkg, pi) => (
+              <div key={pi} className="group/item">
+                {"price" in pkg && pkg.price ? (
+                  <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-[hsl(0_0%_100%/0.02)] hover:bg-[hsl(0_0%_100%/0.04)] transition-colors">
+                    <div className="flex items-center gap-2.5">
+                      <Check size={10} className="text-[hsl(var(--primary))] shrink-0" />
+                      <span className="text-[13px] text-[hsl(0_0%_75%)] font-light">{pkg.name}</span>
+                    </div>
+                    <span className={`text-[13px] font-semibold font-mono whitespace-nowrap ml-4 ${
+                      segment.popular ? "text-[hsl(var(--secondary))]" : "text-[hsl(var(--primary))]"
+                    }`}>
+                      {pkg.price}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2.5 py-2 px-3 rounded-xl bg-[hsl(0_0%_100%/0.02)] hover:bg-[hsl(0_0%_100%/0.04)] transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--muted))/0.3] shrink-0" />
+                    <span className="text-[13px] text-[hsl(0_0%_65%)] font-light">{pkg.name}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-t from-[hsl(0_0%_3%)] via-transparent to-transparent pointer-events-none" />
+            {segment.customPrice ? (
+              <a
+                href="#kontakt"
+                className="group relative flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-[hsl(0_0%_15%)] bg-[hsl(0_0%_5%)] text-white text-[11px] font-semibold tracking-widest uppercase hover:bg-[hsl(0_0%_8%)] hover:border-[hsl(0_0%_25%)] transition-all overflow-hidden"
+              >
+                <Sparkles size={13} className="text-[hsl(var(--primary))]" />
+                Wyceń projekt
+                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            ) : (
+              <a
+                href="#kontakt"
+                className={`group flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-[11px] font-semibold tracking-widest uppercase transition-all ${
+                  segment.popular
+                    ? "bg-[hsl(var(--secondary))] text-white hover:brightness-110 shadow-lg shadow-[hsl(var(--secondary))/0.2]"
+                    : "border border-[hsl(var(--primary))/0.2] text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))/0.08]"
+                }`}
+              >
+                Wybierz pakiet
+                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            )}
+          </div>
         </div>
-        <ul className="space-y-2 mb-6 flex-1">
-          {tier.features.map((f) => (
-            <li key={f} className="flex items-start gap-2 text-[12px] text-[hsl(0_0%_65%)]">
-              <Check size={11} className="text-[hsl(var(--primary))] mt-0.5 shrink-0" />
-              {f}
-            </li>
-          ))}
-        </ul>
       </div>
-      <a
-        href="#kontakt"
-        className={`block w-full text-center text-[11px] font-semibold tracking-widest uppercase py-3 rounded-xl transition-all ${
-          tier.popular
-            ? "bg-[hsl(var(--primary))] text-white hover:brightness-110 shadow-lg shadow-[hsl(var(--primary))/0.2]"
-            : "border border-[hsl(var(--primary))/0.2] text-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))/0.06]"
-        }`}
-      >
-        Wybierz
-      </a>
     </motion.div>
   );
 }
 
 export default function Expertise() {
   return (
-    <section id="uslugi" className="py-24 px-4 md:px-8 relative">
+    <section id="uslugi" className="py-24 px-4 md:px-8 relative overflow-hidden">
       <ParallaxBg speed={0.15}>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--primary)/0.03),transparent_70%)]" />
       </ParallaxBg>
+      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[hsl(var(--primary))/0.02] rounded-full blur-[120px] pointer-events-none" />
       <div className="max-w-6xl mx-auto relative">
         <div className="mb-16">
           <motion.div
@@ -127,47 +191,26 @@ export default function Expertise() {
             transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
             className="text-sm text-[hsl(var(--muted))] font-light mt-4 max-w-lg"
           >
-            Przejrzyste pakiety — bez ukrytych kosztów. Cena zawiera wszystko.
+            Pakiety dopasowane do skali Twojego biznesu — od lokalnej firmy po korporację.
           </motion.p>
         </div>
 
-        {services.map((service, si) => (
-          <div key={service.title} className="mb-14 last:mb-0">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="flex items-center gap-2 mb-6"
-            >
-              <service.icon size={16} className="text-[hsl(var(--primary))]" />
-              <h3 className="text-sm font-semibold text-white tracking-wide">{service.title}</h3>
-              <div className="flex-1 h-px bg-[hsl(var(--card-border))/0.2] ml-4" />
-            </motion.div>
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-30px" }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4"
-            >
-              {service.tiers.map((tier, ti) => (
-                <PricingCard key={tier.name} tier={tier} i={ti} />
-              ))}
-            </motion.div>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          {segments.map((segment, i) => (
+            <SegmentCard key={segment.id} segment={segment} i={i} />
+          ))}
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+          transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
           className="text-center mt-12"
         >
           <p className="text-xs text-[hsl(var(--muted))] font-light">
-            Potrzebujesz czegoś spoza pakietu?{" "}
-            <a href="#kontakt" className="text-[hsl(var(--primary))] hover:underline">Opisz swój projekt</a>
+            Nie znajdujesz swojego pakietu?{" "}
+            <a href="#kontakt" className="text-[hsl(var(--primary))] hover:underline">Opisz projekt</a>
             {" "}— wycenimy indywidualnie.
           </p>
         </motion.div>
