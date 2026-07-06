@@ -98,7 +98,7 @@ export default function Hero() {
           className="mb-8 inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass text-[10px] tracking-widest text-[hsl(0_0%_55%)] font-mono uppercase"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--primary))] shadow-lg shadow-[hsl(var(--primary))/0.5] animate-pulse" />
-          Solo Developer · Szczecin
+          Software House · Szczecin
         </motion.div>
 
         <AnimatedText

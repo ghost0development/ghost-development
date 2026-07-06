@@ -8,6 +8,12 @@ export type Testimonial = {
   created_at: string;
 };
 
+export type Lead = {
+  name: string;
+  email: string;
+  message: string;
+};
+
 let _supabase: ReturnType<typeof createClient> | null = null;
 
 function getSupabase() {

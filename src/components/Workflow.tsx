@@ -4,10 +4,10 @@ import { MessageSquare, PenLine, Code, Rocket } from "lucide-react";
 import AnimatedText from "@/components/AnimatedText";
 
 const steps = [
-  { icon: MessageSquare, title: "Konsultacja", desc: "Poznaję Twój biznes, potrzeby i wizję — ustalam zakres i budżet" },
-  { icon: PenLine, title: "Projekt", desc: "Tworzę prototyp i akceptujemy wygląd — wiesz co dostajesz" },
-  { icon: Code, title: "Kodowanie", desc: "Buduję stronę krok po kroku z optymalizacją na każdym etapie" },
-  { icon: Rocket, title: "Wdrożenie", desc: "Testuję, wgrywam na serwer i szkolę — gotowe do działania" },
+  { icon: MessageSquare, title: "Konsultacja", desc: "Poznajemy Twój biznes, potrzeby i wizję — ustalamy zakres i budżet" },
+  { icon: PenLine, title: "Projekt", desc: "Tworzymy prototyp i akceptujemy wygląd — wiesz co dostajesz" },
+  { icon: Code, title: "Kodowanie", desc: "Budujemy krok po kroku z optymalizacją na każdym etapie" },
+  { icon: Rocket, title: "Wdrożenie", desc: "Testujemy, wgrywamy na serwer i szkolimy — gotowe do działania" },
 ];
 
 export default function Workflow() {

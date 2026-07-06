@@ -10,7 +10,6 @@ const links = [
   { href: "#technologie", label: "Technologie" },
   { href: "#projekty", label: "Projekty" },
   { href: "#about", label: "O nas" },
-  { href: "#opinie", label: "Opinie" },
   { href: "#kontakt", label: "Kontakt" },
 ];
 

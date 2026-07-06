@@ -76,6 +76,9 @@ export default function Testimonials() {
     setTimeout(() => setSubmitted(false), 3000);
   };
 
+  if (loading) return null;
+  if (reviews.length === 0) return null;
+
   return (
     <section id="opinie" className="py-24 px-4 md:px-8 relative">
       <div className="max-w-6xl mx-auto">
@@ -100,43 +103,35 @@ export default function Testimonials() {
           />
         </div>
 
-        {loading && (
-          <div className="flex justify-center py-12">
-            <div className="w-5 h-5 rounded-full border border-[hsl(var(--primary))/0.3] border-t-[hsl(var(--primary))] animate-spin" />
-          </div>
-        )}
-
-        {!loading && reviews.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
-            {reviews.map((review, i) => (
-              <motion.div
-                key={review.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.4, ease: "easeOut" }}
-                className="p-6 rounded-xl bg-[hsl(0_0%_3%/0.6)] border border-[hsl(var(--primary))/0.06] hover:border-[hsl(var(--primary))/0.12] transition-all duration-300"
-              >
-                <div className="flex items-center gap-1 mb-3">
-                  {Array.from({ length: 5 }).map((_, si) => (
-                    <Star
-                      key={si}
-                      size={12}
-                      className={si < review.rating ? "text-[hsl(var(--primary))] fill-[hsl(var(--primary))]" : "text-[hsl(0_0%_20%)]"}
-                    />
-                  ))}
-                </div>
-                <p className="text-sm text-[hsl(0_0%_75%)] font-light leading-relaxed mb-3">
-                  &ldquo;{review.content}&rdquo;
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-[hsl(var(--muted))] tracking-wider">{review.name}</span>
-                  <span className="text-[9px] font-mono text-[hsl(var(--muted))/0.5]">{review.created_at?.slice(0, 10)}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+          {reviews.map((review, i) => (
+            <motion.div
+              key={review.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06, duration: 0.4, ease: "easeOut" }}
+              className="p-6 rounded-xl bg-[hsl(0_0%_3%/0.6)] border border-[hsl(var(--primary))/0.06] hover:border-[hsl(var(--primary))/0.12] transition-all duration-300"
+            >
+              <div className="flex items-center gap-1 mb-3">
+                {Array.from({ length: 5 }).map((_, si) => (
+                  <Star
+                    key={si}
+                    size={12}
+                    className={si < review.rating ? "text-[hsl(var(--primary))] fill-[hsl(var(--primary))]" : "text-[hsl(0_0%_20%)]"}
+                  />
+                ))}
+              </div>
+              <p className="text-sm text-[hsl(0_0%_75%)] font-light leading-relaxed mb-3">
+                &ldquo;{review.content}&rdquo;
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono text-[hsl(var(--muted))] tracking-wider">{review.name}</span>
+                <span className="text-[9px] font-mono text-[hsl(var(--muted))/0.5]">{review.created_at?.slice(0, 10)}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
