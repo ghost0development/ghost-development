@@ -5,11 +5,20 @@ on:
     branches: [master]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,7 +31,8 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       - run: touch docs/.nojekyll
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          commit_message: "chore: rebuild docs [skip ci]"
-          file_pattern: docs/
+          path: docs
+      - id: deployment
+        uses: actions/deploy-pages@v4
