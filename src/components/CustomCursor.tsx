@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
+  const [isMobile] = useState(false);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
@@ -9,6 +10,9 @@ export default function CustomCursor() {
   const ringPosRef = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
+
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
@@ -55,6 +59,9 @@ export default function CustomCursor() {
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
+
+  if (typeof window === "undefined") return null;
+  if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return null;
 
   return (
     <>

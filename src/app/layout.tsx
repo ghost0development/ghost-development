@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/lib/lenis";
 import Script from "next/script";
+import { viewport } from "./viewport";
+
+export { viewport };
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

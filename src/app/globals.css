@@ -165,3 +165,40 @@ body::after {
 @media (max-width: 768px) {
   .hero h1 { font-size: 2.6rem; }
 }
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  a, button, input, textarea, select {
+    cursor: auto;
+  }
+  
+  .section-heading {
+    font-size: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .glass {
+    background: hsl(var(--surface) / 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .tap-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  body {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
