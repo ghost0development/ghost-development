@@ -1,0 +1,30 @@
+========================================
+ODPOWIEDŹ DO MINECRAFT.PL
+========================================
+
+Temat: Co robimy innego niż Fable AI?
+
+Szanowni Państwo,
+
+**Fable AI** to chatbot oparty na Claude (Anthropic).
+**Ghost Dev** to **launcher MC** z doświadczeniem 5000+ graczy.
+
+### NASZA RÓŻNICA:
+
+1. **Launcher MC** - nie chatbot (Fable AI = tylko chat)
+2. **Auth systemy** - Microsoft + non-premium
+3. **Instalatory** - WIN/LIN/MAC z certyfikatami
+4. **Integracje** - status, automatyczne aktualizacje
+5. **Polska społeczność** - rozumiemy wasz rynek
+
+### CO OFERUJEMY:
+
+- Launcher pod waszą markę
+- System kont premium (30% prowizja)
+- Integracja ze statusem serwerów
+- Reklama w launcherze
+
+Potwierdziliśmy techniczne możliwości. Chcecie demo?
+
+Pozdrawiam,
+Ghost Dev Team
