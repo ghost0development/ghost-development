@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 interface AnimatedTextProps {
   text: string;
@@ -42,6 +43,12 @@ export default function AnimatedText({
   variant = "chars",
   once = true,
 }: AnimatedTextProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0));
+  }, []);
+
   if (variant === "words") {
     const words = text.split(" ");
     return (
@@ -55,10 +62,23 @@ export default function AnimatedText({
             viewport={{ once, margin: "-50px" }}
             variants={wordVariant}
             className="inline-block mr-[0.3em]"
-            style={{ perspective: 600 }}
+            style={isMobile ? { perspective: undefined } : { perspective: 600 }}
           >
             {word}
           </motion.span>
+        ))}
+      </Tag>
+    );
+  }
+
+  if (isMobile || variant !== "chars") {
+    const chars = text.split("");
+    return (
+      <Tag className={className}>
+        {chars.map((char, i) => (
+          <span key={`${char}-${i}`} className="inline-block">
+            {char === " " ? "\u00A0" : char}
+          </span>
         ))}
       </Tag>
     );
