@@ -47,12 +47,10 @@ export default function Contact() {
             as="span"
             variant="words"
           />
-          <AnimatedText
-            text="Masz pomysł? Porozmawiajmy."
-            className="text-4xl md:text-5xl font-bold tracking-tight text-white"
-            as="h2"
-            variant="chars"
-          />
+          <div className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
+            <span className="block">Masz pomysł?</span>
+            <span className="block">Porozmawiajmy</span>
+          </div>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
